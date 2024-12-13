@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import userModel from './model/userModel.js'
 import mongoose from 'mongoose'
 import cookieParser from 'cookie-parser'
+
 // Loads .env file contents into process.env
 dotenv.config()
 
@@ -28,7 +29,7 @@ app.set('view engine', 'ejs');
 app.get('/', async (req, res) => {
     if (req.cookies.user !== undefined) {
         try {
-            const user = await userModel.findOne({ name: req.cookies.user })
+            // const user = await userModel.findOne({ name: req.cookies.user })
             // console.log(user);
             res.status(201).redirect('/user')
         } catch (error) {
@@ -58,6 +59,11 @@ app.get('/user', async (req, res) => {
     }
 })
 
+//Log out user
+app.get('/logout', (rew, res)=>{
+    res.clearCookie("user").redirect('/')
+})
+
 // Log in user
 app.get('/login', async (req, res) => {
     res.render('logInPage')
@@ -65,8 +71,14 @@ app.get('/login', async (req, res) => {
 
 app.post('/userlogin', async (req, res) => {
     const user = await userModel.findOne({ name: req.body.name, logInPassword: req.body.password })
-    res.cookie("user", user.name)
-    res.redirect('/user')
+
+    if (user === null) {
+        res.redirect('/login?error=User not found');
+    }
+    else {
+        res.cookie("user", user.name)
+        res.redirect('/user')
+    }
 })
 
 // Create user
