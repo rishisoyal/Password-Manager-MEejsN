@@ -64,7 +64,8 @@ input[type="password"]:focus {
 }
 
 /* Submit Button */
-input[type="submit"] {
+input[type="submit"],
+a {
     background-color: #bb86fc;
     border: none;
     border-radius: 6px;
@@ -74,9 +75,11 @@ input[type="submit"] {
     font-size: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
+    text-decoration: none;
 }
 
-input[type="submit"]:hover {
+input[type="submit"]:hover,
+a:hover {
     background-color: #03dac6;
     box-shadow: 0 4px 17px rgba(0, 0, 0, 0.3);
     transform: translateY(-2px);
