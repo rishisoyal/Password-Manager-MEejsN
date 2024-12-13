@@ -1,0 +1,82 @@
+body {
+    background-color: #121212;
+    /* Dark background */
+    color: #e0e0e0;
+    /* Light text color */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #1e1e1e;
+    /* Slightly lighter dark background */
+    padding: 2rem;
+    border-radius: 12px;
+    /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    /* Subtle shadow */
+    width: 400px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="submit"] {
+    margin-bottom: 1rem;
+    padding: 0.8rem;
+    border: 1px solid #333;
+    /* Subtle border */
+    border-radius: 8px;
+    /* Rounded inputs */
+    background-color: #2a2a2a;
+    /* Input background */
+    color: #e0e0e0;
+    /* Input text color */
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #6200ee;
+    /* Highlight border on focus */
+    box-shadow: 0 0 5px #6200ee;
+    /* Glow effect */
+}
+
+input[type="submit"] {
+    background-color: #6200ee;
+    /* Primary button color */
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+input[type="submit"]:hover {
+    background-color: #3700b3;
+    /* Darker on hover */
+}
+
+label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.container h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: #bb86fc;
+    /* Accent color */
+}

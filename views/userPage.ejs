@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="../css/userPage.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>Welcome To The Password Manager</h1>
+        <h2>Passwords of <span style="color: rgb(111, 30, 210);">
+                <%= user.name %>
+            </span></h2>
+        <table>
+            <tr>
+                <th>SNO.</th>
+                <th>Title</th>
+                <th>Password</th>
+                <th>Actions</th>
+            </tr>
+            <% user.passwordList.forEach((passwordData, index)=> { %>
+                <tr>
+                    <td>
+                        <%= index + 1 %>
+                    </td>
+                    <td>
+                        <%= passwordData.title %>
+                    </td>
+                    <td>
+                        <%= passwordData.password %>
+                    </td>
+                    <td>
+                        <div id="actions">
+                            <form action="/deletepassword/<%= user.name %>/<%= passwordData._id  %>">
+                                <button type="submit">Delete</button>
+                            </form>
+                            <form action="/updatepassword/<%= user.name %>/<%= passwordData._id %>">
+                                <button type="submit">Update</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                <% }) %>
+        </table>
+
+        <form action="/addpassword/<%= user.name %>" method="get">
+            <button type="submit">Add Password</button>
+        </form>
+    </div>
+
+</body>
+
+</html>

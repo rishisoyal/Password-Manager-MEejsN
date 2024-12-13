@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New user</title>
+    <link rel="stylesheet" href="../css/createAccountPage.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome to the password manager</h1>
+        <h2>Create your space</h2>
+        <form action="/createuser" method="post">
+            <label for="name">Your name:</label>
+            <input type="text" name="name" id="name" placeholder="Enter name">
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" placeholder="Enter password">
+
+            <input type="submit" value="Create">
+        </form>
+    </div>
+</body>
+
+</html>
