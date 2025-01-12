@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import dotenv from 'dotenv';
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
 // Load dotenv file
 dotenv.config();
@@ -14,12 +14,12 @@ if (!MONGODB_URI) {
 
 // Connect to MongoDB
 mongoose
-    .connect(MONGODB_URI)
+    .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log(`Database Connected Successfully!`);
     })
     .catch((err) => {
-        console.error(`Could Not Connect To Database: ${err.message}`);
+        console.error(`Could Not Connect To Database:`, err);
     });
 
 // Define Schemas
@@ -28,16 +28,15 @@ const userSchema = mongoose.Schema({
     logInPassword: { type: String, required: true },
     passwordList: [
         {
-            title: {type:String, required: true},
-            password: {type:String, required: true},
-            _id: {type: mongoose.Types.ObjectId, default: () => new mongoose.Types.ObjectId() }
-        }
+            title: { type: String, required: true },
+            password: { type: String, required: true },
+            _id: { type: mongoose.Types.ObjectId, default: () => new mongoose.Types.ObjectId() },
+        },
     ],
 });
 
 // Create Model
-const user = mongoose.model('user', userSchema);
+const userModel = mongoose.model('user', userSchema);
 
 // Export Model
-export default user
-
+module.exports = { userModel };

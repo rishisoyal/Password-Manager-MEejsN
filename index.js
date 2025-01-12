@@ -1,9 +1,9 @@
 // Imports
-import express from 'express'
-import dotenv from 'dotenv'
-import userModel from './model/userModel.js'
-import mongoose from 'mongoose'
-import cookieParser from 'cookie-parser'
+const express = require('express')
+const dotenv = require('dotenv')
+const { userModel } = require('./model/userModel.js')
+const mongoose = require('mongoose')
+const cookieParser = require('cookie-parser')
 
 // Loads .env file contents into process.env
 dotenv.config()
@@ -60,7 +60,7 @@ app.get('/user', async (req, res) => {
 })
 
 //Log out user
-app.get('/logout', (rew, res)=>{
+app.get('/logout', (rew, res) => {
     res.clearCookie("user").redirect('/')
 })
 
