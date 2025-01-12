@@ -4,6 +4,7 @@ const dotenv = require('dotenv')
 const { userModel } = require('./model/userModel.js')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
+const path = require('path')
 
 // Loads .env file contents into process.env
 dotenv.config()
@@ -18,11 +19,13 @@ const app = express()
 // Parse req, res body to json
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-// Serve static files
-app.use(express.static('./static'))
+// Middleware to serve static files
+app.use(express.static(path.join(__dirname, 'static')));
 app.use(cookieParser())
 // Set view engine (rendering template) to ejs
 app.set('view engine', 'ejs');
+// configure the views directory (tell where to look for views)
+app.set('views', path.join(__dirname, 'views'));
 
 // Routes
 // Main page
