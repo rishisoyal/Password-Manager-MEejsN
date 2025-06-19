@@ -5,6 +5,28 @@ const { userModel } = require('./model/userModel.js')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const path = require('path')
+const bycrypt = require('bcrypt')
+
+// function to generate password hash
+async function hashPassword(pass) {
+    let salt;
+    let hash;
+    const saltRound = 10;
+    try {
+        salt = await bycrypt.genSalt(saltRound);
+    } catch (err) {
+        console.log(err.toString());
+        return err.message;
+    }
+    try {
+        hash = await bycrypt.hash(pass, salt);
+    } catch (err) {
+        console.log(err.toString());
+        return err.message;
+    }
+    return hash;
+}
+
 
 // Loads .env file contents into process.env
 dotenv.config()
@@ -73,9 +95,13 @@ app.get('/login', async (req, res) => {
 })
 
 app.post('/userlogin', async (req, res) => {
-    const user = await userModel.findOne({ name: req.body.name, logInPassword: req.body.password })
 
-    if (user === null) {
+    const hashPass = await hashPassword(req.body.password);
+    // console.log(hashPass);
+    
+    const user = await userModel.findOne({ name: req.body.name })
+
+    if (user === null || await bycrypt.compare(user.logInPassword, hashPass)) {
         res.redirect('/login?error=User not found');
     }
     else {
@@ -89,10 +115,11 @@ app.get('/create', (req, res) => {
     res.render('createNewUserPage')
 })
 app.post('/createuser', async (req, res) => {
+    const hashPass = await hashPassword(req.body.password);
     try {
         userModel.create({
             name: req.body.name,
-            logInPassword: req.body.password,
+            logInPassword: hashPass,
             passwordList: []
         })
         // console.log("Created");
